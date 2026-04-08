@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException, Request
 from starlette.responses import JSONResponse
 
-from model import PokemonBase, PokemonID
-from operation import createPokemon, showPokemons, showPokemon
+from model import PokemonBase, PokemonID, PokemonUpdate
+from operation import createPokemon, showPokemons, showPokemon, updatePokemon
 import csv
 import os
 
@@ -40,6 +40,13 @@ async def show_pokemon(id: int):
     if not(pokemon):
         raise HTTPException(status_code=404, detail="Pokemon has not been caught")
     return pokemon
+
+@app.patch("/pokemon/{id}", response_model=PokemonID)
+async def update_pokemon(id: int, pokemon_update: PokemonUpdate):
+    updated = updatePokemon(id, pokemon_update.model_dump(exclude_unset=True))
+    if not (updated):
+        raise HTTPException(status_code=404, detail="Pokemon has not been evolved")
+    return updated
 
 
 '''

@@ -17,4 +17,5 @@ class PokemonID(PokemonBase):
     id: int = Field(..., gt=0)
 
 class PokemonUpdate(PokemonBase):
-    level: Optional[int] = Field(None, gt=0, le=100)
+    name: str | None = Field(None, min_length=4, max_length=50)
+    level: int | None = Field(None, gt=0, le=100)
