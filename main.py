@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from model import PokemonBase, PokemonID
-from operation import createPokemon
+from operation import createPokemon, showPokemons
 import csv
 import os
 
@@ -19,16 +19,13 @@ async def catch_pokemon(pokemon: PokemonBase):
     return createPokemon(pokemon)
 
 
-'''
-@app.get("/pokemon", response_model=list[PokemonResponse])
+
+@app.get("/pokemon", response_model=list[PokemonID])
 async def show_all_pokemon():
-    pokemons=[]
-    with open(CSV_FILE, newline="") as file:
-        reader = csv.DictReader(file)
-        for p in reader:
-            pokemons.append(PokemonBase(**p))
+    pokemons = showPokemons()
     return pokemons
 
+'''
 
 @app.get("/pokemon/{id}", response_model=PokemonResponse)
 async def show_pokemon(id: int):
