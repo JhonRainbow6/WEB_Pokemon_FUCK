@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException, Request
 from starlette.responses import JSONResponse
 
 from model import PokemonBase, PokemonID, PokemonUpdate
-from operation import createPokemon, showPokemons, showPokemon, updatePokemon, deletePokemon
+from operation_csv import createPokemon, showPokemons, showPokemon, updatePokemon, deletePokemon
 import csv
 import os
 
