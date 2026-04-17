@@ -20,11 +20,11 @@ async def http_exception_handler(request: Request, exc: HTTPException):
     return JSONResponse(status_code=exc.status_code, content={"message": f"{exc.detail} Ooops. TODOOO fallo"},)
 
 
-@app.post("/pokemon")
-async def catch_pokemon(pokemon: PokemonBase, session: SessionDep):
-    new_pokemon = create_pokemon_db(pokemon, session)
+@app.post("/pokemon", response_model=PokemonID)
+async def catch_pokemon(pokemon: PokemonBase, session:SessionDep):
+     return create_pokemon_db(pokemon, session)
     ##pokedex.append(pokemon)
-    return new_pokemon
+
 
 
 
